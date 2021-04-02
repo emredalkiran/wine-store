@@ -62,6 +62,17 @@ function Form({ id, handleAdd, close }: FormProps) {
     handleInputBlur(e.currentTarget.name, e.currentTarget.value)
   }
 
+  const handleDiscard = () => {
+    if (typeof handleAdd === 'function') {
+      handleAdd()
+      return
+    }
+    if (typeof close === 'function') {
+      close()
+      return
+    }
+  }
+
   const handleSave = async (
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
@@ -117,7 +128,9 @@ function Form({ id, handleAdd, close }: FormProps) {
         })}
       </div>
       <div className='is-flex is-justify-content-flex-end'>
-        <button className='button is-danger mr-2'>Discard Changes</button>
+        <button onClick={handleDiscard} className='button is-danger mr-2'>
+          Discard Changes
+        </button>
         <button
           onClick={handleSave}
           className='button is-primary ml-2'
